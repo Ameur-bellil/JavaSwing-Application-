@@ -1,10 +1,10 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class HashTable {
     public int tableSize;
     public ArrayList<String>[] table;
     private int count;
-    private DrawHashTable drawHashTable;
 
     public HashTable(int size) {
         tableSize = size;
@@ -15,16 +15,13 @@ public class HashTable {
         this.count = 0;
     }
 
-
-
-    private int hash(String key) {
+    public int hash(String key) {
         int hashValue = 0;
         int n = key.length();
         for (int i = 0; i < n; i++) {
             hashValue = (hashValue + key.charAt(i)) * 31;
         }
         return Math.abs(hashValue % tableSize);
-
     }
 
     public void add(String ch) {
@@ -48,12 +45,11 @@ public class HashTable {
         }
     }
 
-    public int Size() {
+    public int size() {
         return count;
     }
 
     public boolean contains(String ch) {
-
         int index = hash(ch);
         if (table[index].contains(ch)) {
             System.out.println(ch + " found");
@@ -70,8 +66,11 @@ public class HashTable {
         }
     }
 
-    public static void main(String[] args) {
+    public ArrayList<String>[] getTable() {
+        return table;
+    }
 
+    public static void main(String[] args) {
         HashTable hashTable = new HashTable(10);
         Scanner scanner = new Scanner(System.in);
         label:
@@ -87,7 +86,7 @@ public class HashTable {
                     hashTable.remove(input);
                     break;
                 case "size":
-                    System.out.println(hashTable.Size());
+                    System.out.println(hashTable.size());
                     break;
                 case "contains":
                     hashTable.contains(input);
